@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="reset.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Slab:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <section class="to-do-list">
+        <div class="container--header">
+            <h1 class="to-do-list-title">To-Do List</h1>
+            <img class="to-do-list-img" src="img/icone-to-do-list.png" alt="Icone de lista de tarefas">
+        </div>
+        
+        <div class="container--input">
+            <input class="input--tasks" type="text" placeholder="Adicione uma tarefa">
+            <button class="btn--tasks">Add</button>
+        </div>
+
+        <ul class="container--add">
+            <li class="list-items hidden">
+                <div>
+                    <input type="checkbox" id="meuCheckbox" class="checkbox-hidden">
+                    <label for="meuCheckbox" class="item-text custom-checkbox">Estudar Programação</label>
+                </div>
+                    
+                <button class="btn-close"><img class="img-close" src="img/icon-close.svg" alt="Icone para excluir um item">
+                </button>
+            </li>
+        </ul>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

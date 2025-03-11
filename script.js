@@ -1,86 +1,74 @@
 'use strict';
 
-let containerAdd, createList, createLabel, createInput, createDiv, createParagraph, createButtonRemove, createImg;
-let listItems = document.querySelectorAll('.list-items');
+let containerAdd = document.querySelector('.container--add');
+const btnAdd = document.querySelector('.btn--tasks');
+const inputTasks = document.querySelector('.input--tasks');
 
-const createElements = function () {
-    containerAdd = document.querySelector('.container--add');
-
-    createList = document.createElement('li');
+const createElements = function (taskText) {
+    const createList = document.createElement('li');
     createList.classList.add('list-items');
 
-    containerAdd.appendChild(createList);
-
-    createLabel = document.createElement('label');
+    const createLabel = document.createElement('label');
     createLabel.classList.add('align--items');
-    createList.appendChild(createLabel);
 
-    createInput = document.createElement('input');
+    const createInput = document.createElement('input');
     createInput.classList.add('checkbox-hidden');
     createInput.type = 'checkbox';
-    createLabel.appendChild(createInput);
 
-    createDiv = document.createElement('div');
+    const createDiv = document.createElement('div');
     createDiv.classList.add('custom--checkbox');
-    createLabel.appendChild(createDiv);
 
-    createParagraph = document.createElement('p');
+    const createParagraph = document.createElement('p');
     createParagraph.classList.add('new--text');
-    createLabel.appendChild(createParagraph);
-    createParagraph.textContent = 'Estudar programação';
+    createParagraph.textContent = taskText;
 
-    createButtonRemove = document.createElement('button');
+    const createButtonRemove = document.createElement('button');
     createButtonRemove.classList.add('btn-close');
-    createList.appendChild(createButtonRemove);
 
-    createImg = document.createElement('img');
+    const createImg = document.createElement('img');
     createImg.classList.add('img-close');
     createImg.src = 'img/icon-close.svg';
-    createImg.alt = 'Icone para excluir um item';
+    createImg.alt = 'Ícone para excluir um item';
+
+    // Estrutura dos elementos
+    createLabel.appendChild(createInput);
+    createLabel.appendChild(createDiv);
+    createLabel.appendChild(createParagraph);
+
     createButtonRemove.appendChild(createImg);
-}
+    createList.appendChild(createLabel);
+    createList.appendChild(createButtonRemove);
+    containerAdd.appendChild(createList);
 
-let inputTasks = document.querySelector('.input--tasks');
-const btnAdd = document.querySelector('.btn--tasks');
-let newText = document.querySelectorAll('.new--text');
+    // Remover a tarefa ao clicar no botão de fechar
+    createButtonRemove.addEventListener('click', function () {
+        createList.remove();
+    });
 
-btnAdd.addEventListener('click', function() {
-    if (listItems.length <= 7) {
-    createElements(); // Cria os itens sempre que clicar no botão 'add'.
-    listItems = document.querySelectorAll('.list-items');
+    // Marcar a tarefa como concluída
+    createInput.addEventListener('change', function () {
+        createParagraph.style.textDecoration = this.checked ? 'line-through' : 'none';
+    });
+};
+
+btnAdd.addEventListener('click', function () {
+    let listItems = document.querySelectorAll('.list-items');
     
-    inputTasks = document.querySelector('.input--tasks').value;
-    createParagraph.textContent = inputTasks; 
-
-    const btnClose = document.querySelectorAll('.btn-close');
-    listItems = document.querySelectorAll('.list-items');
-
-    for (let i = 0; i < btnClose.length; i++) {
-        btnClose[i].addEventListener('click', function() {
-            listItems[i].remove();
-        });
-    }
-
-    const checkboxHidden = document.querySelectorAll('.checkbox-hidden');
-
-    for (let i = 0; i < checkboxHidden.length; i++) {
-        checkboxHidden[i].addEventListener('change', function() {
-            if (this.checked) {
-                const newText = document.querySelectorAll('.new--text');
-                newText[i].style.textDecoration = 'line-through';
-            } else {
-                const newText = document.querySelectorAll('.new--text');
-                newText[i].style.textDecoration = 'none';
-            }
-        });
-    }
-    } else {
+    if (listItems.length >= 8) {
         alert('Você criou o máximo de lista de tarefas!');
+        return;
     }
-    
-    
-});
 
+    const taskText = inputTasks.value.trim(); // Evita espaços vazios
+
+    if (taskText === '') {
+        alert('Digite uma tarefa válida!');
+        return;
+    }
+
+    createElements(taskText);
+    inputTasks.value = ''; // Limpa o campo de input após adicionar a tarefa
+});
 
 
 
